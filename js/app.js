@@ -1,6 +1,13 @@
-
+const toggleSpinner = displayStyle => {
+    document.getElementById("spinner").style.display = displayStyle;
+}
+const togglePlayers = displayStyle => {
+    document.getElementById("players").style.display = displayStyle;
+}
 const loadPlayers = () => {
     const searchText = document.getElementById("input-field").value;
+    toggleSpinner("block");
+    togglePlayers("none");
 
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${searchText}`;
     fetch(url)
@@ -29,6 +36,8 @@ const displayPlayer = players => {
         `;
         playersContainer.appendChild(div);
     })
+    toggleSpinner("none");
+    togglePlayers("block");
 }
 
 const loadPlayerDetails = playerId => {
@@ -41,6 +50,7 @@ const loadPlayerDetails = playerId => {
 
 const displayPlayerDetails = details => {
     const playerDetails = document.getElementById("player-details");
+    playerDetails.textContent = '';
 
     const div = document.createElement("div");
     div.classList.add("card");
